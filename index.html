@@ -522,6 +522,9 @@
     .hero-actions{ flex-direction:column; align-items:stretch; }
     .footer-inner{ flex-direction:column; align-items:flex-start; }
   }
+  @media(max-width:880px){
+  #reel .container > div{ grid-template-columns:1fr !important; }
+}
 </style>
 </head>
 <body>
@@ -687,6 +690,28 @@
     </div>
   </section>
 
+ <!-- SHOWCASE REEL -->
+<section id="reel" style="border-bottom:1px solid var(--border-soft); padding:120px 0;">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
+      <div style="border-radius:18px; overflow:hidden; border:1px solid var(--border);">
+        <img src="brand-reel.jpg" alt="Lo que producimos en LABStudio — dron, web, video, IA y Meta Ads" style="width:100%; display:block;">
+      </div>
+      <div>
+        <p class="eyebrow mono" style="display:inline-flex; align-items:center; gap:10px; font-size:0.74rem; color:var(--text-muted); margin-bottom:24px;">
+          <span style="width:18px; height:1px; background:var(--coral); display:inline-block;"></span>
+          Lo que producimos
+        </p>
+        <h2 style="font-family:'Space Grotesk',sans-serif; font-size:clamp(1.9rem,3.4vw,2.7rem); letter-spacing:-0.02em; font-weight:700; margin:0 0 20px;">Cinco servicios.<br>Una sola <span class="gradient-text">estética</span>.</h2>
+        <p style="color:var(--text-muted); font-size:1.02rem; line-height:1.65; margin-bottom:36px;">Dron, web, video, automatización IA y Meta Ads — producidos con la misma identidad visual para que tu marca se vea consistente en todos los canales.</p>
+        <a class="btn btn-primary" href="https://wa.me/5493425387578?text=Hola%20LABStudio%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios" target="_blank" rel="noopener">
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+  
   <!-- POR QUÉ -->
   <section id="porque">
     <div class="container">
