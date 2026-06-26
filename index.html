@@ -201,13 +201,13 @@
     padding:170px 0 110px;
     border-bottom:1px solid var(--border-soft);
     background-image: url('hero-bg.jpg');
-    background-size:cover;
-    background-position:center 30%;
+    background-size:65%;
+    background-position:right 5% center;
     background-repeat:no-repeat;
   }
   .hero::before{
     content:''; position:absolute; inset:0; z-index:1;
-    background:linear-gradient(135deg, rgba(10,12,18,0.88) 0%, rgba(10,12,18,0.75) 60%, rgba(10,12,18,0.82) 100%);
+    background:linear-gradient(105deg, rgba(10,12,18,0.97) 0%, rgba(10,12,18,0.92) 45%, rgba(10,12,18,0.65) 100%);
   }
   .hero-glow{
     position:absolute; border-radius:50%; filter:blur(110px); opacity:0.18; pointer-events:none; z-index:1;
@@ -257,23 +257,24 @@
   .channel-card--ia{ overflow:hidden; }
   .channel-card-img{
     width:calc(100% + 68px); margin:-34px -34px 20px;
-    height:160px;
-    background-size:cover; background-position:center;
-    opacity:0.55; transition:opacity .4s ease;
+    height:110px;
+    background:linear-gradient(135deg, rgba(139,92,246,0.20) 0%, rgba(74,217,232,0.12) 100%);
+    border-bottom:1px solid var(--border);
+    opacity:1; transition:opacity .4s ease;
   }
-  .channel-card--ia:hover .channel-card-img{ opacity:0.75; }
+  .channel-card--ia:hover .channel-card-img{ opacity:0.8; }
 
   /* Vision background en sección "Por qué" */
   #porque{
     position:relative;
     background-image:url('vision-bg.jpg');
-    background-size:cover;
-    background-position:center 40%;
-    background-attachment:fixed;
+    background-size:50%;
+    background-position:right 3% center;
+    background-repeat:no-repeat;
   }
   #porque::before{
     content:''; position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(10,12,18,0.92) 0%, rgba(10,12,18,0.80) 50%, rgba(10,12,18,0.94) 100%);
+    background:linear-gradient(105deg, rgba(10,12,18,0.98) 0%, rgba(10,12,18,0.90) 40%, rgba(10,12,18,0.55) 100%);
   }
   #porque .container{ position:relative; z-index:1; }
 
@@ -283,7 +284,19 @@
   .section-head p{ margin-top:18px; color:var(--text-muted); font-size:1.02rem; }
 
   /* ---------- SERVICES ---------- */
-  #servicios{ border-bottom:1px solid var(--border-soft); }
+  #servicios{
+    border-bottom:1px solid var(--border-soft);
+    position:relative;
+  }
+  #servicios::before{
+    content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+    background-image:url('services-grid.jpg');
+    background-size:50%;
+    background-position:right 2% center;
+    background-repeat:no-repeat;
+    opacity:0.06;
+  }
+  #servicios .container{ position:relative; z-index:1; }
   .channels{
     display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;
   }
