@@ -124,7 +124,7 @@
   .hero-glow{ position:absolute; border-radius:50%; filter:blur(110px); opacity:0.18; pointer-events:none; z-index:1; }
   .hero-glow.one{ width:480px; height:480px; background:var(--coral); top:-160px; left:-120px; }
   .hero-glow.two{ width:420px; height:420px; background:var(--violet); bottom:-180px; right:-100px; }
-  .scan-line{ position:absolute; top:0%; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, var(--coral), var(--violet), transparent); opacity:0.35; animation:scan 7s linear infinite; }
+  .scan-line{ position:absolute; top:0%; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--coral), var(--violet), transparent); opacity:0.45; animation:scan 6s linear infinite; z-index:2; }
   @keyframes scan{ 0%{ top:0%; } 100%{ top:100%; } }
   .hero-inner{ position:relative; z-index:2; }
   .eyebrow{ display:inline-flex; align-items:center; gap:10px; font-size:0.74rem; color:var(--text-muted); margin-bottom:24px; }
