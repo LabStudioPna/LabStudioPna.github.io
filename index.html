@@ -257,12 +257,14 @@
   .channel-card--ia{ overflow:hidden; }
   .channel-card-img{
     width:calc(100% + 68px); margin:-34px -34px 20px;
-    height:110px;
-    background:linear-gradient(135deg, rgba(139,92,246,0.20) 0%, rgba(74,217,232,0.12) 100%);
+    height:160px;
+    background-color: rgba(139,92,246,0.10);
+    background-size:cover;
+    background-position:center;
     border-bottom:1px solid var(--border);
-    opacity:1; transition:opacity .4s ease;
+    opacity:0.65; transition:opacity .4s ease;
   }
-  .channel-card--ia:hover .channel-card-img{ opacity:0.8; }
+  .channel-card--ia:hover .channel-card-img{ opacity:0.90; }
 
   /* Vision background en sección "Por qué" */
   #porque{
@@ -600,6 +602,7 @@
 
       <div class="channels">
         <article class="channel-card reveal">
+          <div class="channel-card-img" aria-hidden="true" style="background-image:url('services-grid.jpg');background-size:300% 200%;background-position:0% 0%"></div>
           <div class="channel-top">
             <span class="channel-num mono gradient-text">CH·01</span>
             <span class="channel-icon">
@@ -612,6 +615,7 @@
         </article>
 
         <article class="channel-card reveal">
+          <div class="channel-card-img" aria-hidden="true" style="background-image:url('services-grid.jpg');background-size:300% 200%;background-position:50% 0%"></div>
           <div class="channel-top">
             <span class="channel-num mono gradient-text">CH·02</span>
             <span class="channel-icon">
@@ -624,6 +628,7 @@
         </article>
 
         <article class="channel-card reveal">
+          <div class="channel-card-img" aria-hidden="true" style="background-image:url('services-grid.jpg');background-size:300% 200%;background-position:100% 0%"></div>
           <div class="channel-top">
             <span class="channel-num mono gradient-text">CH·03</span>
             <span class="channel-icon">
@@ -648,6 +653,7 @@
           <span class="channel-tag mono">Procesos inteligentes</span>
         </article>
         <article class="channel-card reveal">
+          <div class="channel-card-img" aria-hidden="true" style="background-image:url('services-grid.jpg');background-size:300% 200%;background-position:100% 100%"></div>
           <div class="channel-top">
             <span class="channel-num mono gradient-text">CH·05</span>
             <span class="channel-icon">
