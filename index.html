@@ -753,7 +753,7 @@
   fetch(url).then(r=>r.json()).then(data=>{
     if(window.location.search.includes('lab')){
       const el = document.createElement('div');
-      el.style.cssText='position:fixed;bottom:80px;right:20px;background:#0A0C12;border:1px solid #FF6B4A;color:#FF6B4A;font-family:monospace;font-size:12px;padding:8px 14px;border-radius:6px;z-index:9999;opacity:0.9';
+      el.style.cssText='position:fixed;bottom:80px;left:20px;background:#0A0C12;border:1px solid #FF6B4A;color:#FF6B4A;font-family:monospace;font-size:12px;padding:8px 14px;border-radius:6px;z-index:9999;opacity:0.9';
       el.innerHTML = '👁 ' + data.visitas + ' visitas';
       document.body.appendChild(el);
     }
