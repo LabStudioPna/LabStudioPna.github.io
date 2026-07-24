@@ -355,6 +355,7 @@
     .meta-right{ padding:32px 22px; }
   }
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -676,6 +677,24 @@
     #casos .carousel-dot.active{ width:18px; }
     #casos .touch-hint{ display:none; }
   }
+
+  /* ── Estilos táctiles para carrusel SaaS ── */
+  @media (hover: none) and (pointer: coarse) {
+    #casos .saas-card {
+      cursor: pointer !important;
+      -webkit-tap-highlight-color: rgba(255,107,74,0.15);
+    }
+    #casos .saas-card .cta {
+      pointer-events: none;
+    }
+    #casos .saas-card:active {
+      transform: scale(0.97) !important;
+      transition: transform 0.15s ease;
+    }
+    #casos .saas-card.active .cta {
+      pointer-events: auto;
+    }
+  }
   </style>
 
   <section id="casos">
@@ -786,7 +805,7 @@
       </div>
 
       <div class="touch-hint">
-        <span>👆</span> Arrastrá o usá los controles para rotar &nbsp;·&nbsp; Tocá una tarjeta para verla
+        <span>👆</span> Arrastrá o usá los controles para rotar &nbsp;·&nbsp; Tocá una tarjeta para visitar el producto
       </div>
     </div>
 
@@ -889,6 +908,19 @@
 
     // ── Drag / Swipe ──
     function onPointerDown(e) {
+      // En táctil: si el tap es en una tarjeta al frente, no iniciar drag
+      if (isTouchDevice && e.touches) {
+        const touch = e.touches[0];
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        const card = el?.closest('.saas-card');
+        if (card) {
+          const index = parseInt(card.dataset.index);
+          if (frontIndexNow() === index) {
+            // No iniciar drag, dejar que el click se maneje
+            return;
+          }
+        }
+      }
       isDragging = true;
       didDrag = false;
       autoRotate = false;
@@ -902,7 +934,7 @@
       if (!isDragging) return;
       const x = e.clientX ?? (e.touches ? e.touches[0].clientX : 0);
       const deltaX = x - dragStartX;
-      if (Math.abs(deltaX) > 6) didDrag = true;
+      if (Math.abs(deltaX) > DRAG_THRESHOLD) didDrag = true;
       currentAngle = dragStartAngle + deltaX * DRAG_SPEED;
       targetAngle = currentAngle;
     }
@@ -926,6 +958,9 @@
     document.addEventListener('touchend', onPointerUp);
 
     // ── Card click ──
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const DRAG_THRESHOLD = isTouchDevice ? 12 : 6; // más tolerancia en táctil
+
     function onCardClick(e) {
       const card = e.currentTarget;
       const index = parseInt(card.dataset.index);
@@ -935,7 +970,18 @@
       // Si se estaba arrastrando, no interpretar como click
       if (didDrag) { if (link) e.preventDefault(); return; }
 
-      // Link de una tarjeta al frente: dejar navegar
+      // En táctil: si la tarjeta está al frente, redirigir al sitio del producto
+      if (isTouchDevice && atFront) {
+        e.preventDefault();
+        e.stopPropagation();
+        const productUrl = card.querySelector('.cta')?.getAttribute('href');
+        if (productUrl) {
+          window.open(productUrl, '_blank');
+        }
+        return;
+      }
+
+      // Link de una tarjeta al frente (desktop): dejar navegar
       if (link && atFront) return;
 
       e.stopPropagation();
@@ -947,7 +993,7 @@
         return;
       }
 
-      // Toggle active
+      // Toggle active (solo desktop)
       cards.forEach((c, i) => {
         if (i === index) {
           const isNowActive = !c.classList.contains('active');
