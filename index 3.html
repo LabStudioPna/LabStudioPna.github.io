@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LABStudio.pna | Optimización de Tarjetas SaaS e Interfaces Táctiles</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* VARIABLES DE CSS DIRECTAS DE LABSTUDIO PARANÁ */
+    :root {
+      --ink: #0A0C12;
+      --surface: #12151F;
+      --surface-2: #181C29;
+      --border: rgba(243, 241, 236, 0.10);
+      --border-soft: rgba(243, 241, 236, 0.06);
+      --text: #F3F1EC;
+      --text-muted: #8F94A3;
+      --coral: #FF6B4A;
+      --violet: #8B5CF6;
+      --cyan: #4AD9E8;
+      --grad: linear-gradient(135deg, var(--coral), var(--violet));
+      --radius: 18px;
+      --maxw: 1180px;
+    }
+
+    /* ESTILOS GLOBALES Y ACCESIBILIDAD */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--ink);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Enlace de accesibilidad obligatorio para navegación asistida */
+   .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--coral);
+      color: var(--text);
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.2s;
+    }
+   .skip-link:focus {
+      top: 0;
+    }
+
+   .container {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* EFECTOS VISUALES CIBERPUNK DE LABSTUDIO */
+   .hero-glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: var(--grad);
+      filter: blur(150px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+   .hero-glow.one { top: 10%; left: -10%; }
+   .hero-glow.two { top: 60%; right: -10%; }
+
+   .scan-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(74, 217, 232, 0.08);
+      pointer-events: none;
+      z-index: 99;
+      animation: scan 6s linear infinite;
+    }
+    @keyframes scan {
+      0% { transform: translateY(-100px); }
+      100% { transform: translateY(110vh); }
+    }
+
+    /* CABECERA Y NAVEGACIÓN */
+    header {
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(10, 12, 18, 0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+   .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+   .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+   .logo.dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse-dot 2.4s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+    }
+
+   .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+   .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.25s ease;
+    }
+
+   .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* BOTONES */
+   .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+   .btn-primary {
+      background: var(--grad);
+      color: var(--text);
+      border: none;
+    }
+
+   .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -10px rgba(255, 107, 74, 0.45);
+    }
+
+   .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+   .btn-ghost:hover {
+      border-color: var(--text);
+    }
+
+    /* SECCIÓN HERO EXPOSITORA */
+   .hero {
+      position: relative;
+      padding: 120px 0 80px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+   .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+   .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+    }
+
+   .telemetry {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(243, 241, 236, 0.03);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 40px;
+      margin-bottom: 24px;
+    }
+
+   .telemetry span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* SECCIÓN "NUESTRAS FRECUENCIAS" (SERVICIOS) */
+   .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+   .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 12px;
+    }
+
+   .section-title p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+   .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 100px;
+    }
+
+   .service-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 40px;
+      transition: all 0.3s ease;
+    }
+
+   .service-card:hover {
+      border-color: var(--border);
+      background-color: var(--surface-2);
+    }
+
+   .service-ch {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--coral);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+   .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+
+   .service-card p {
+      color: var(--text-muted);
+    }
+
+    /* SECCIÓN DE PRODUCTOS SAAS - "CASOS CON NOMBRE PROPIO" */
+   .saas-section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+   .saas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    /* ARQUITECTURA DE LAS TARJETAS SAAS CON SOPORTE TÁCTIL MEJORADO */
+   .saas-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 400px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.3s ease, 
+                  box-shadow 0.3s ease;
+      cursor: pointer; /* Solución para forzar comportamiento interactivo en WebKit iOS */
+      -webkit-tap-highlight-color: transparent; /* Elimina el cuadro gris nativo en navegadores iOS */
+      touch-action: manipulation; /* Elimina la latencia nativa de 300ms desactivando gestos de zoom rápidos */
+    }
+
+    /* Foco visible para navegación accesible por teclado */
+   .saas-card:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    /* Hover en desktop y clase de estado activo inyectada por JS táctil */
+   .saas-card:hover,
+   .saas-card.active {
+      transform: translateY(-8px);
+      border-color: var(--cyan);
+      box-shadow: 0 20px 40px -15px rgba(74, 217, 232, 0.25);
+    }
+
+   .saas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+   .saas-icon-box {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: background 0.3s ease;
+    }
+
+   .saas-card:hover.saas-icon-box,
+   .saas-card.active.saas-icon-box {
+      background: rgba(74, 217, 232, 0.1);
+      border-color: var(--cyan);
+    }
+
+   .saas-status {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background-color: var(--surface-2);
+      border: 1px solid var(--border-soft);
+      color: var(--text-muted);
+    }
+
+   .saas-card:hover.saas-status,
+   .saas-card.active.saas-status {
+      border-color: rgba(74, 217, 232, 0.3);
+      color: var(--cyan);
+    }
+
+   .saas-body h3 {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+   .saas-subtitle {
+      color: var(--coral);
+      font-size: 0.9rem;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+   .saas-features {
+      list-style-type: none;
+      margin-top: 16px;
+    }
+
+   .saas-features li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+   .saas-features li::before {
+      content: "•";
+      color: var(--cyan);
+      font-weight: bold;
+    }
+
+   .saas-footer {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+   .saas-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.25s ease;
+    }
+
+   .saas-card:hover.saas-link,
+   .saas-card.active.saas-link {
+      color: var(--cyan);
+    }
+
+   .saas-arrow {
+      transition: transform 0.25s ease;
+    }
+
+   .saas-card:hover.saas-arrow,
+   .saas-card.active.saas-arrow {
+      transform: translateX(4px);
+    }
+
+    /* PIE DE PÁGINA */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0;
+      text-align: center;
+      background-color: var(--surface);
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* BURGER MENU EN DISPOSITIVOS MÓVILES */
+   .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 60;
+    }
+
+   .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--text);
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    /* RESPONSIVIDAD GENERAL */
+    @media (max-width: 768px) {
+     .nav-links {
+        display: none;
+      }
+     .hamburger {
+        display: block;
+      }
+     .hero {
+        padding: 80px 0 60px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <div class="scan-line"></div>
+
+  <div class="hero-glow one"></div>
+  <div class="hero-glow two"></div>
+
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <div class="dot"></div>
+        LABStudio.pna
+      </a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#casos">Casos SaaS</a>
+      </nav>
+      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <section class="hero">
+      <div class="container">
+        <div class="telemetry">
+          <div class="logo"><div class="dot"></div></div>
+          <span>Optimizador de Eventos Touch y Clic v2.4</span>
+        </div>
+        <h1>Resolución de Fallas de Compatibilidad Táctil</h1>
+        <p>Estudio de ingeniería web y pasarelas de interacción optimizado para entornos táctiles de alta velocidad y compatibilidad cruzada de eventos.</p>
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <a href="#casos" class="btn btn-primary">Ver Tarjetas SaaS</a>
+          <a href="#servicios" class="btn btn-ghost">Nuestras Frecuencias</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" style="padding: 100px 0 60px 0;">
+      <div class="container">
+        <div class="section-title">
+          <h2>Nuestras Frecuencias</h2>
+          <p>Servicios unificados de ingeniería y diseño de alto rendimiento desarrollados por el estudio</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-ch">CH·01</div>
+            <h3>Sitios y landing pages</h3>
+            <p>Diseño y desarrollo de páginas de alto rendimiento, optimizadas para SEO y adaptadas para convertir visitas en clientes reales en cualquier pantalla.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-ch">CH·02</div>
+            <h3>Vuelos en dron</h3>
+            <p>Fotografía y filmación aérea profesional para el sector inmobiliario, eventos y obras de construcción con perspectivas espectaculares.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-ch">CH·03</div>
+            <h3>Video y fotografía</h3>
+            <p>Producción multimedia y edición dinámica para redes sociales, adaptada minuciosamente a la estética y el ritmo comercial de tu marca.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-ch">CH·04</div>
+            <h3>Automatización IA</h3>
+            <p>Despliegue de flujos de trabajo inteligentes con n8n y agentes autónomos para delegar tareas complejas y recuperar valioso tiempo operativo.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-ch">CH·05</div>
+            <h3>Publicidad en Meta</h3>
+            <p>Gestión estratégica de campañas pagas en Instagram, Facebook y WhatsApp, optimizando el retorno de inversión publicitaria.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="casos" class="saas-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Casos con Nombre Propio</h2>
+          <p>Explora nuestras herramientas SaaS inteligentes. Haz clic o tópalas en tu móvil para interactuar.</p>
+        </div>
+
+        <div class="saas-grid">
+          
+          <article class="saas-card" data-url="https://labstudiopna.github.io/FiscoIA/">
+            <div class="saas-header">
+              <div class="saas-icon-box">📊</div>
+              <span class="saas-status">Activo</span>
+            </div>
+            <div class="saas-body">
+              <span class="saas-subtitle">Asistente Contable con IA</span>
+              <h3>FiscoIA</h3>
+              <ul class="saas-features">
+                <li>Análisis de facturas PDF con 99% de precisión</li>
+                <li>Actualizado con 27 fuentes normativas ARCA</li>
+                <li>Exportación automática para Libro IVA Digital</li>
+              </ul>
+            </div>
+            <div class="saas-footer">
+              <span class="saas-link">
+                Ver el producto <span class="saas-arrow">→</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="saas-card" data-url="https://labstudiopna.github.io/MiPropIA/">
+            <div class="saas-header">
+              <div class="saas-icon-box">🏠</div>
+              <span class="saas-status">Activo</span>
+            </div>
+            <div class="saas-body">
+              <span class="saas-subtitle">Gestor Inmobiliario con IA</span>
+              <h3>MiPropIA</h3>
+              <ul class="saas-features">
+                <li>Detección de alertas normativas (DNU 70/2023)</li>
+                <li>Calculadora de sellado en 24 provincias</li>
+                <li>Calendario de vencimientos con semáforo</li>
+              </ul>
+            </div>
+            <div class="saas-footer">
+              <span class="saas-link">
+                Ver el producto <span class="saas-arrow">→</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="saas-card" data-url="https://labstudiopna.github.io/CampoIA/">
+            <div class="saas-header">
+              <div class="saas-icon-box">🌾</div>
+              <span class="saas-status">Estable</span>
+            </div>
+            <div class="saas-body">
+              <span class="saas-subtitle">Gestor de Campo con IA</span>
+              <h3>CampoIA</h3>
+              <ul class="saas-features">
+                <li>Liquidación de granos con retenciones vigentes</li>
+                <li>Analizador inteligente de contratos de arrendamiento</li>
+                <li>Control de vencimientos y alertas de SENASA</li>
+              </ul>
+            </div>
+            <div class="saas-footer">
+              <span class="saas-link">
+                Ver el producto <span class="saas-arrow">→</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="saas-card" data-url="https://labstudiopna.github.io/ConstructorIA/">
+            <div class="saas-header">
+              <div class="saas-icon-box">🏗️</div>
+              <span class="saas-status">Beta</span>
+            </div>
+            <div class="saas-body">
+              <span class="saas-subtitle">Asistente de Obra con IA</span>
+              <h3>ConstructorIA</h3>
+              <ul class="saas-features">
+                <li>Análisis de planos en formato PDF con presupuesto</li>
+                <li>Cálculo predictivo de materiales y armaduras</li>
+                <li>Dólar, UVA e inflación actualizados (BCRA/INDEC)</li>
+              </ul>
+            </div>
+            <div class="saas-footer">
+              <span class="saas-link">
+                Ver el producto <span class="saas-arrow">→</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="saas-card" data-url="https://labstudiopna.github.io/FarmaIA/">
+            <div class="saas-header">
+              <div class="saas-icon-box">💊</div>
+              <span class="saas-status">Activo</span>
+            </div>
+            <div class="saas-body">
+              <span class="saas-subtitle">Asistente de Farmacia con IA</span>
+              <h3>FarmaIA</h3>
+              <ul class="saas-features">
+                <li>Copago exacto por obra social (OSDE, PAMI, etc.)</li>
+                <li>Control de interacciones y duplicidad terapéutica</li>
+                <li>Trazabilidad ANMAT y comparador de genéricos</li>
+              </ul>
+            </div>
+            <div class="saas-footer">
+              <span class="saas-link">
+                Ver el producto <span class="saas-arrow">→</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="saas-card" data-url="https://labstudiopna.github.io/BarIA/">
+            <div class="saas-header">
+              <div class="saas-icon-box">🍔</div>
+              <span class="saas-status">Nuevo</span>
+            </div>
+            <div class="saas-body">
+              <span class="saas-subtitle">Asistente Gastronómico con IA</span>
+              <h3>BarIA</h3>
+              <ul class="saas-features">
+                <li>Costeo inmediato por foto con margen sugerido</li>
+                <li>Mapeo de normativa provincial y sueldos UTHGRA</li>
+                <li>Alertas y vencimientos de habilitaciones comerciales</li>
+              </ul>
+            </div>
+            <div class="saas-footer">
+              <span class="saas-link">
+                Ver el producto <span class="saas-arrow">→</span>
+              </span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 LABStudio Paraná. Interfaz adaptativa optimizada mediante eventos unificados de respuesta inmediata.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const saasCards = document.querySelectorAll('.saas-card');
+      
+      saasCards.forEach(card => {
+        // SOLUCIÓN WEBKIT (iOS/Safari): Forzar la inyección de roles interactivos semánticos.
+        // Esto le indica al motor de renderizado de Apple que propague correctamente el evento.
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        
+        // Forzar propiedad interactiva por JS para asegurar la delegación del puntero
+        card.style.cursor = 'pointer';
+
+        // SISTEMA DE PREVENCIÓN DE GHOST CLICKS Y MEDICIÓN DE TOUCH SLOP
+        let startX = 0;
+        let startY = 0;
+        let startTime = 0;
+        const moveThreshold = 10; // Desplazamiento máximo permitido (tolerancia táctil en píxeles)
+        const timeThreshold = 250; // Tiempo máximo permitido de retención del toque en milisegundos
+
+        // Al iniciar el toque, capturamos las coordenadas relativas al viewport
+        card.addEventListener('touchstart', (e) => {
+          const touch = e.touches;
+          startX = touch.clientX;
+          startY = touch.clientY;
+          startTime = Date.now();
+        }, { passive: true }); // Mejora sustancial del rendimiento del scroll en hilos compositores
+
+        // Al finalizar el toque, evaluamos si existió arrastre o exceso de permanencia
+        card.addEventListener('touchend', (e) => {
+          const touch = e.changedTouches;
+          const endX = touch.clientX;
+          const endY = touch.clientY;
+          const duration = Date.now() - startTime;
+
+          // Cálculo de distancia de arrastre empleando fórmula de vector euclidiano
+          const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+
+          // Si el recorrido del dedo es menor que el umbral y cumple el tiempo de toque rápido
+          if (distance < moveThreshold && duration < timeThreshold) {
+            
+            // Interceptamos la emulación de clic por defecto del sistema operativo móvil
+            // Esto anula la demora de 300ms y evita duplicación de eventos (ghost clicks)
+            e.preventDefault();
+            
+            ejecutarInteraccionTarjeta(card);
+          }
+        }, { passive: false }); // Obligatorio 'passive: false' para poder emplear preventDefault()
+
+        // EVENTO PARA RATÓN DE ESCRITORIO O DISPOSITIVOS BASADOS EN RATÓN
+        card.addEventListener('click', (e) => {
+          // Si el evento de clic se originó mediante un puntero de ratón físico
+          // o fue accionado por interacción directa de teclado
+          if (e.detail > 0 || e.pointerType === 'mouse' ||!e.pointerType) {
+            ejecutarInteraccionTarjeta(card);
+          }
+        });
+
+        // Soporte accesible para activaciones por teclado (Enter y Espacio)
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            ejecutarInteraccionTarjeta(card);
+          }
+        });
+      });
+
+      // ACCIÓN DE REDIRECCIONAMIENTO Y ANIMACIÓN VISUAL
+      function ejecutarInteraccionTarjeta(cardElement) {
+        // Remueve la clase active del resto de tarjetas para mantener coherencia estética
+        saasCards.forEach(c => {
+          if (c!== cardElement) c.classList.remove('active');
+        });
+
+        // Aplica retroalimentación activa de inmediato en dispositivos móviles táctiles
+        cardElement.classList.add('active');
+
+        const destinoUrl = cardElement.getAttribute('data-url');
+        
+        // Ejecuta la redirección tras permitir que se complete la transición de escala CSS
+        setTimeout(() => {
+          if (destinoUrl) {
+            window.location.href = destinoUrl;
+          }
+        }, 150); // Delay mínimo de transición de 150ms
+      }
+
+      // INTEGRACIÓN DE EVENTOS DEL BOTÓN MENÚ MÓVIL
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (hamburger) {
+        hamburger.addEventListener('click', () => {
+          const estaAbierto = hamburger.getAttribute('aria-expanded') === 'true';
+          hamburger.setAttribute('aria-expanded',!estaAbierto);
+          
+          if (!estaAbierto) {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '80px';
+            navLinks.style.left = '0';
+            navLinks.style.width = '100%';
+            navLinks.style.backgroundColor = 'var(--surface)';
+            navLinks.style.padding = '24px';
+            navLinks.style.borderBottom = '1px solid var(--border)';
+            navLinks.style.gap = '16px';
+          } else {
+            navLinks.style.display = 'none';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
