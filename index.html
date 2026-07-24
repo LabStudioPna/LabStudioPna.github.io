@@ -501,8 +501,8 @@
   /* ══ Carrusel 3D · sección #casos ══ */
   #casos{ overflow:hidden; }
   #casos #scene-wrapper{
-    width:100%; max-width:var(--maxw); height:620px; margin:0 auto;
-    position:relative; perspective:1400px; z-index:5;
+    width:100%; max-width:var(--maxw); height:580px; margin:0 auto;
+    position:relative; perspective:1400px; z-index:5; cursor:grab;
   }
   #casos #scene{
     width:100%; height:100%; position:relative;
@@ -517,10 +517,12 @@
     border-radius:20px; padding:24px 22px 22px;
     box-shadow:0 8px 32px rgba(0,0,0,0.5), 0 0 60px rgba(255,107,74,0.06), inset 0 1px 0 rgba(243,241,236,0.04);
     cursor:pointer; transform-style:preserve-3d;
-    transition:all 0.45s cubic-bezier(0.23,1,0.32,1);
+    transition:border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
     user-select:none; -webkit-tap-highlight-color:transparent;
     will-change:transform,left,top;
+    backface-visibility:hidden;
   }
+  #casos .saas-card img{ -webkit-user-drag:none; user-drag:none; }
   #casos .saas-card::before{
     content:''; position:absolute; inset:-1px; border-radius:20px; padding:1px;
     background:linear-gradient(135deg, rgba(255,107,74,0.35), rgba(139,92,246,0.18), transparent 65%);
@@ -589,6 +591,37 @@
   #casos .card-campo{       --acc:var(--violet); --acc-rgb:139,92,246; }
   #casos .card-constructor{ --acc:var(--coral);  --acc-rgb:255,107,74; }
   #casos .card-farma{       --acc:var(--cyan);   --acc-rgb:74,217,232; }
+  #casos .card-bar{         --acc:var(--violet); --acc-rgb:139,92,246; }
+
+  /* ── Controles del carrusel ── */
+  #casos .carousel-controls{
+    display:flex; align-items:center; justify-content:center; gap:20px;
+    margin-top:30px; z-index:20; position:relative;
+  }
+  #casos .carousel-btn{
+    width:48px; height:48px; border-radius:50%;
+    border:1px solid rgba(255,107,74,0.3);
+    background:rgba(255,107,74,0.08); color:var(--coral);
+    font-size:1.2rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.3s ease; backdrop-filter:blur(10px);
+  }
+  #casos .carousel-btn:hover{
+    background:rgba(255,107,74,0.2); border-color:rgba(255,107,74,0.5);
+    transform:scale(1.1);
+  }
+  #casos .carousel-btn:active{ transform:scale(0.95); }
+  #casos .carousel-dots{ display:flex; gap:10px; }
+  #casos .carousel-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(243,241,236,0.15); border:none; cursor:pointer;
+    transition:all 0.3s ease; padding:0;
+  }
+  #casos .carousel-dot.active{
+    background:var(--coral); box-shadow:0 0 10px rgba(255,107,74,0.5);
+    width:24px; border-radius:4px;
+  }
+  #casos .carousel-dot:hover{ background:rgba(255,107,74,0.5); }
 
   /* ── Partículas y orbes ── */
   #casos .particle{ position:absolute; border-radius:50%; pointer-events:none; animation:c3d-float 10s ease-in-out infinite; z-index:2; }
@@ -606,32 +639,28 @@
 
   /* ── Hint táctil ── */
   #casos .touch-hint{
-    position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
-    font-size:0.72rem; color:rgba(243,241,236,0.25);
+    position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+    font-size:0.72rem; color:rgba(243,241,236,0.22);
     display:flex; align-items:center; gap:8px; z-index:10;
     animation:c3d-hint 4s ease-in-out infinite; white-space:nowrap;
   }
-  @keyframes c3d-hint{ 0%,100%{ opacity:0.2; } 50%{ opacity:0.6; } }
-
-  /* ── Conexiones SVG ── */
-  #casos .connections-svg{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:3; opacity:0.15; }
-  #casos .connections-svg line{ stroke:url(#connGradient); stroke-width:0.5; stroke-dasharray:4 6; animation:c3d-dash 20s linear infinite; }
-  @keyframes c3d-dash{ to{ stroke-dashoffset:-200; } }
+  @keyframes c3d-hint{ 0%,100%{ opacity:0.15; } 50%{ opacity:0.45; } }
 
   /* ── Responsive ── */
   @media (max-width:768px){
-    #casos #scene-wrapper{ height:520px; perspective:1000px; }
-    #casos .saas-card{ width:190px; padding:18px 16px 16px; border-radius:18px; }
+    #casos #scene-wrapper{ height:480px; perspective:1000px; }
+    #casos .saas-card{ width:200px; padding:18px 16px 16px; border-radius:18px; }
     #casos .saas-card h3{ font-size:1.05rem; }
     #casos .saas-card .subtitle{ font-size:0.72rem; }
     #casos .saas-card .desc{ font-size:0.72rem; }
     #casos .saas-card .features li{ font-size:0.68rem; }
     #casos .saas-card .icon-wrap{ width:44px; height:44px; }
     #casos .saas-card .icon-wrap img{ width:28px; height:28px; }
+    #casos .carousel-btn{ width:42px; height:42px; font-size:1rem; }
   }
   @media (max-width:480px){
-    #casos #scene-wrapper{ height:480px; perspective:800px; }
-    #casos .saas-card{ width:165px; padding:14px 13px 12px; border-radius:16px; }
+    #casos #scene-wrapper{ height:420px; perspective:800px; }
+    #casos .saas-card{ width:175px; padding:14px 13px 12px; border-radius:16px; }
     #casos .saas-card h3{ font-size:0.95rem; }
     #casos .saas-card .subtitle{ font-size:0.68rem; margin-bottom:8px; }
     #casos .saas-card .desc{ font-size:0.68rem; margin-bottom:10px; }
@@ -641,6 +670,10 @@
     #casos .saas-card .icon-wrap img{ width:26px; height:26px; }
     #casos .saas-card .meta-badge{ font-size:0.55rem; padding:3px 8px; margin-bottom:12px; }
     #casos .saas-card .cta{ font-size:0.7rem; }
+    #casos .carousel-btn{ width:38px; height:38px; font-size:0.9rem; }
+    #casos .carousel-dots{ gap:8px; }
+    #casos .carousel-dot{ width:6px; height:6px; }
+    #casos .carousel-dot.active{ width:18px; }
     #casos .touch-hint{ display:none; }
   }
   </style>
@@ -650,7 +683,7 @@
       <div class="section-head reveal">
         <p class="eyebrow mono">Casos con nombre propio</p>
         <h2>No solo hacemos webs.<br>Construimos <span class="gradient-text">SaaS</span>.</h2>
-        <p>Cinco productos SaaS de inteligencia artificial que diseñamos, desarrollamos y pusimos en producción de punta a punta para rubros argentinos — mismo estudio, mismo equipo, cero intermediarios.</p>
+        <p>Seis productos SaaS de inteligencia artificial que diseñamos, desarrollamos y pusimos en producción de punta a punta para rubros argentinos — mismo estudio, mismo equipo, cero intermediarios.</p>
       </div>
     </div>
 
@@ -659,23 +692,6 @@
       <div class="glow-orb" style="width:350px;height:350px;background:rgba(255,107,74,0.12);top:5%;left:15%;"></div>
       <div class="glow-orb" style="width:280px;height:280px;background:rgba(139,92,246,0.08);bottom:15%;right:10%;animation-delay:-3s;"></div>
       <div class="glow-orb" style="width:220px;height:220px;background:rgba(74,217,232,0.08);top:45%;left:55%;animation-delay:-5s;"></div>
-
-      <!-- Conexiones entre tarjetas -->
-      <svg class="connections-svg" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <defs>
-          <linearGradient id="connGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#FF6B4A;stop-opacity:0.3" />
-            <stop offset="50%" style="stop-color:#8B5CF6;stop-opacity:0.2" />
-            <stop offset="100%" style="stop-color:#4AD9E8;stop-opacity:0.1" />
-          </linearGradient>
-        </defs>
-        <line x1="280" y1="200" x2="440" y2="340" />
-        <line x1="440" y1="340" x2="600" y2="240" />
-        <line x1="600" y1="240" x2="760" y2="330" />
-        <line x1="760" y1="330" x2="920" y2="210" />
-        <line x1="280" y1="200" x2="600" y2="240" />
-        <line x1="600" y1="240" x2="920" y2="210" />
-      </svg>
 
       <div id="scene">
         <!-- ═══ Card 1: FiscoIA ═══ -->
@@ -752,11 +768,33 @@
           </ul>
           <a href="https://labstudiopna.github.io/FarmaIA/" target="_blank" rel="noopener" class="cta">Ver el producto →</a>
         </div>
+
+        <!-- ═══ Card 6: BarIA ═══ -->
+        <div class="saas-card card-bar" data-index="5">
+          <span class="meta-badge"><span class="live-dot" aria-hidden="true"></span>En producción</span>
+          <div class="icon-wrap"><img src="https://labstudiopna.github.io/BarIA/favicon-192.png" alt="BarIA" loading="lazy"></div>
+          <h3>BarIA</h3>
+          <div class="subtitle">Asistente gastronómico con IA</div>
+          <p class="desc">Costea tragos y platos, calcula pour cost y food cost al instante.</p>
+          <ul class="features">
+            <li>Costeo por foto o texto con margen sugerido</li>
+            <li>Normativa provincial y sueldos UTHGRA</li>
+            <li>Vencimientos de habilitaciones con alerta</li>
+          </ul>
+          <a href="https://labstudiopna.github.io/BarIA/" target="_blank" rel="noopener" class="cta">Ver el producto →</a>
+        </div>
       </div>
 
       <div class="touch-hint">
-        <span>👆</span> Tocá las tarjetas para interactuar &nbsp;·&nbsp; Mové el mouse para rotar la escena
+        <span>👆</span> Arrastrá o usá los controles para rotar &nbsp;·&nbsp; Tocá una tarjeta para verla
       </div>
+    </div>
+
+    <!-- Controles del carrusel -->
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="btn-prev" aria-label="Anterior">‹</button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+      <button class="carousel-btn" id="btn-next" aria-label="Siguiente">›</button>
     </div>
 
     <div class="container">
@@ -765,37 +803,64 @@
   </section>
 
   <script>
-  /* ══ Carrusel 3D · sección #casos ══ */
+  /* ══ Carrusel 3D giratorio · sección #casos ══ */
   (function() {
     'use strict';
 
-    const scene     = document.getElementById('scene');
-    const wrapper   = document.getElementById('scene-wrapper');
-    const cards     = document.querySelectorAll('#casos .saas-card');
-    const container = document.getElementById('casos');
+    const scene         = document.getElementById('scene');
+    const wrapper       = document.getElementById('scene-wrapper');
+    const cards         = document.querySelectorAll('#casos .saas-card');
+    const container     = document.getElementById('casos');
+    const btnPrev       = document.getElementById('btn-prev');
+    const btnNext       = document.getElementById('btn-next');
+    const dotsContainer = document.getElementById('carousel-dots');
     if (!scene || !wrapper || !container || !cards.length) return;
 
-    // x, y, z, rotaciones base, velocidad y amplitud de oscilación
-    const cardConfigs = [
-      { x: -340, y: -90, z: 70, rx: 6,  ry: -18, rz: 2,  speed: 0.75, amp: 14 },
-      { x: -170, y: 70,  z: 35, rx: -4, ry: -10, rz: -1, speed: 0.95, amp: 11 },
-      { x: 0,    y: -50, z: 90, rx: 3,  ry: 0,   rz: 0,  speed: 0.85, amp: 16 },
-      { x: 170,  y: 60,  z: 25, rx: -5, ry: 10,  rz: 1,  speed: 1.05, amp: 12 },
-      { x: 340,  y: -80, z: 60, rx: 7,  ry: 18,  rz: -2, speed: 0.7,  amp: 13 }
-    ];
+    const totalCards = cards.length;
 
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    let mouseX = 0, mouseY = 0;
-    let targetRotX = 0, targetRotY = 0;
-    let currentRotX = 0, currentRotY = 0;
+    // ── Configuración ──
+    const RADIUS = 380;                    // radio del anillo
+    const AUTO_ROTATE_SPEED = 0.15;        // grados por frame
+    const DRAG_SPEED = 0.3;
+    const SNAP_SPEED = 0.08;
+    const ANGLE_STEP = 360 / totalCards;
+
+    // ── Estado ──
+    let currentAngle = 0;
+    let targetAngle = 0;
+    let isDragging = false;
+    let didDrag = false;
+    let dragStartX = 0;
+    let dragStartAngle = 0;
+    let autoRotate = true;
     let time = 0;
     let animationId = null;
     let isVisible = false;
     let activeCard = null;
-    let autoRotate = true;
-    let autoRotateAngle = 0;
-    let lastMouseMove = 0;
+    let snapTarget = null;
 
+    // Dots
+    const dots = [];
+    for (let i = 0; i < totalCards; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Tarjeta ${i + 1}`);
+      dot.addEventListener('click', () => goToCard(i));
+      dotsContainer.appendChild(dot);
+      dots.push(dot);
+    }
+
+    function frontIndexNow() {
+      const normalizedAngle = ((currentAngle % 360) + 360) % 360;
+      return Math.round(normalizedAngle / ANGLE_STEP) % totalCards;
+    }
+
+    function updateDots() {
+      const front = frontIndexNow();
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === front));
+    }
+
+    // ── Intersection Observer ──
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         isVisible = entry.isIntersecting;
@@ -808,82 +873,109 @@
     }, { threshold: 0.05 });
     observer.observe(container);
 
-    function onMouseMove(e) {
-      const rect = wrapper.getBoundingClientRect();
-      mouseX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-      mouseY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-      targetRotY = mouseX * 10;
-      targetRotX = -mouseY * 7;
+    // ── Navegación ──
+    function goToCard(index) {
       autoRotate = false;
-      lastMouseMove = Date.now();
+      snapTarget = index;
+      const normalizedAngle = ((currentAngle % 360) + 360) % 360;
+      let diff = index * ANGLE_STEP - normalizedAngle;
+      while (diff > 180) diff -= 360;
+      while (diff < -180) diff += 360;
+      targetAngle = currentAngle + diff;
     }
 
-    function onTouchMove(e) {
-      if (e.touches.length === 1) {
-        const rect = wrapper.getBoundingClientRect();
-        mouseX = (e.touches[0].clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-        mouseY = (e.touches[0].clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-        targetRotY = mouseX * 10;
-        targetRotX = -mouseY * 7;
-        autoRotate = false;
-        lastMouseMove = Date.now();
-      }
+    btnPrev.addEventListener('click', () => goToCard((frontIndexNow() - 1 + totalCards) % totalCards));
+    btnNext.addEventListener('click', () => goToCard((frontIndexNow() + 1) % totalCards));
+
+    // ── Drag / Swipe ──
+    function onPointerDown(e) {
+      isDragging = true;
+      didDrag = false;
+      autoRotate = false;
+      snapTarget = null;
+      dragStartX = e.clientX ?? e.touches[0].clientX;
+      dragStartAngle = currentAngle;
+      wrapper.style.cursor = 'grabbing';
     }
 
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const x = e.clientX ?? (e.touches ? e.touches[0].clientX : 0);
+      const deltaX = x - dragStartX;
+      if (Math.abs(deltaX) > 6) didDrag = true;
+      currentAngle = dragStartAngle + deltaX * DRAG_SPEED;
+      targetAngle = currentAngle;
+    }
+
+    function onPointerUp() {
+      if (!isDragging) return;
+      isDragging = false;
+      wrapper.style.cursor = '';
+      const nearestIndex = frontIndexNow();
+      snapTarget = nearestIndex;
+      targetAngle = nearestIndex * ANGLE_STEP;
+      while (targetAngle - currentAngle > 180) targetAngle -= 360;
+      while (targetAngle - currentAngle < -180) targetAngle += 360;
+    }
+
+    wrapper.addEventListener('mousedown', onPointerDown);
+    wrapper.addEventListener('touchstart', onPointerDown, { passive: true });
+    document.addEventListener('mousemove', onPointerMove);
+    document.addEventListener('touchmove', onPointerMove, { passive: true });
+    document.addEventListener('mouseup', onPointerUp);
+    document.addEventListener('touchend', onPointerUp);
+
+    // ── Card click ──
     function onCardClick(e) {
-      if (e.target.closest('a')) return; // dejar pasar los links a cada producto
-      e.stopPropagation();
       const card = e.currentTarget;
       const index = parseInt(card.dataset.index);
+      const link = e.target.closest('a');
+      const atFront = frontIndexNow() === index;
 
+      // Si se estaba arrastrando, no interpretar como click
+      if (didDrag) { if (link) e.preventDefault(); return; }
+
+      // Link de una tarjeta al frente: dejar navegar
+      if (link && atFront) return;
+
+      e.stopPropagation();
+
+      // Tarjeta que no está al frente: rotar hasta ella
+      if (!atFront) {
+        if (link) e.preventDefault();
+        goToCard(index);
+        return;
+      }
+
+      // Toggle active
       cards.forEach((c, i) => {
         if (i === index) {
           const isNowActive = !c.classList.contains('active');
           c.classList.toggle('active');
-          c.style.zIndex = isNowActive ? 200 : '';
           activeCard = isNowActive ? index : null;
         } else {
           c.classList.remove('active');
-          c.style.zIndex = '';
         }
       });
-
-      const currentTransform = card.style.transform;
-      card.style.transform = currentTransform.replace(/scale\([^)]+\)/, '') + ' scale(1.06)';
-      setTimeout(() => {
-        card.style.transform = card.style.transform.replace(' scale(1.06)', '');
-      }, 220);
     }
 
-    function onBackgroundClick(e) {
+    cards.forEach(card => card.addEventListener('click', onCardClick));
+
+    // Click fuera desactiva
+    document.addEventListener('click', (e) => {
       if (e.target.closest('#casos .saas-card')) return;
-      cards.forEach(c => {
-        c.classList.remove('active');
-        c.style.zIndex = '';
-      });
+      cards.forEach(c => c.classList.remove('active'));
       activeCard = null;
-    }
-
-    if (!isTouchDevice) document.addEventListener('mousemove', onMouseMove, { passive: true });
-    document.addEventListener('touchmove', onTouchMove, { passive: true });
-    document.addEventListener('click', onBackgroundClick);
-
-    cards.forEach(card => {
-      card.addEventListener('click', onCardClick);
-      card.addEventListener('mouseenter', () => { autoRotate = false; });
-      card.addEventListener('mouseleave', () => {
-        if (!activeCard && !isTouchDevice) lastMouseMove = Date.now();
-      });
     });
 
-    // Partículas flotantes (paleta del sitio)
+    // ── Partículas (paleta del sitio) ──
     (function createParticles() {
       const colors = [
         'rgba(255,107,74,0.35)',
         'rgba(139,92,246,0.25)',
         'rgba(74,217,232,0.25)'
       ];
-      for (let i = 0; i < 18; i++) {
+      for (let i = 0; i < 15; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
         p.style.left = (5 + Math.random() * 90) + '%';
@@ -899,81 +991,77 @@
       }
     })();
 
-    function getResponsivePositions() {
-      const w = wrapper.offsetWidth;
-      const scale = Math.min(w / 900, 1);
-      return cardConfigs.map(d => ({
-        x: d.x * scale, y: d.y * scale, z: d.z,
-        rx: d.rx, ry: d.ry, rz: d.rz,
-        speed: d.speed, amp: d.amp * scale
-      }));
-    }
-
+    // ── Loop principal ──
     function animate() {
       if (!isVisible) { animationId = null; return; }
+
       time += 0.016;
 
-      if (isTouchDevice && Date.now() - lastMouseMove > 2000) autoRotate = true;
-
-      if (autoRotate) {
-        autoRotateAngle += 0.0025;
-        targetRotY = Math.sin(autoRotateAngle) * 6;
-        targetRotX = Math.cos(autoRotateAngle * 0.65) * 3.5;
+      if (autoRotate && !isDragging && snapTarget === null) {
+        currentAngle += AUTO_ROTATE_SPEED;
+        targetAngle = currentAngle;
       }
 
-      currentRotX += (targetRotX - currentRotX) * 0.07;
-      currentRotY += (targetRotY - currentRotY) * 0.07;
-      scene.style.transform = `rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg)`;
+      if (snapTarget !== null && !isDragging) {
+        const diff = targetAngle - currentAngle;
+        if (Math.abs(diff) < 0.5) {
+          currentAngle = targetAngle;
+          snapTarget = null;
+          setTimeout(() => { if (snapTarget === null) autoRotate = true; }, 3000);
+        } else {
+          currentAngle += diff * SNAP_SPEED;
+        }
+      }
 
-      const positions = getResponsivePositions();
+      scene.style.transform = `rotateY(${currentAngle}deg)`;
+
       const centerX = wrapper.offsetWidth / 2;
       const centerY = wrapper.offsetHeight / 2;
+      const responsiveRadius = Math.min(wrapper.offsetWidth, 900) / 2.2;
+      const r = Math.min(RADIUS, responsiveRadius);
 
       cards.forEach((card, i) => {
-        const pos = positions[i];
-        const floatY = Math.sin(time * pos.speed + i * 1.3) * pos.amp;
-        const floatX = Math.cos(time * pos.speed * 0.65 + i * 0.9) * (pos.amp * 0.25);
-        const floatZ = Math.sin(time * pos.speed * 0.45 + i * 2.1) * 18;
-        const breatheRotY = Math.sin(time * 0.55 + i * 0.7) * 2.5;
-        const breatheRotX = Math.cos(time * 0.4 + i * 1.6) * 1.8;
-        const parallaxX = mouseX * (6 + i * 2.5);
-        const parallaxY = mouseY * (4 + i * 1.8);
+        const cardBaseAngle = (i * ANGLE_STEP) * (Math.PI / 180);
+        const x = Math.sin(cardBaseAngle) * r;
+        const z = Math.cos(cardBaseAngle) * r;
 
-        const finalX = centerX + pos.x + floatX + parallaxX;
-        const finalY = centerY + pos.y + floatY + parallaxY;
-        const finalZ = pos.z + floatZ;
-        const scale = card.classList.contains('active') ? 1.09 : 1;
+        const floatY = Math.sin(time * 0.85 + i * 1.4) * 14;
+        const floatX = Math.cos(time * 0.6 + i * 0.9) * 4;
+        const floatZ = Math.sin(time * 0.5 + i * 2.2) * 10;
+        const breatheRotY = Math.sin(time * 0.5 + i * 0.8) * 2;
+        const breatheRotX = Math.cos(time * 0.4 + i * 1.5) * 1.5;
 
-        card.style.left = (finalX - card.offsetWidth / 2) + 'px';
-        card.style.top = (finalY - card.offsetHeight / 2) + 'px';
+        const lookAngle = -i * ANGLE_STEP;
 
-        let tiltX = 0, tiltY = 0;
-        if (!isTouchDevice && card.matches(':hover')) {
-          tiltY = mouseX * 8;
-          tiltX = -mouseY * 6;
-        }
+        const depth = (z + r) / (2 * r);
+        const opacity = 0.55 + depth * 0.45;
+        const scale = 0.82 + depth * 0.18;
+        const brightness = 0.7 + depth * 0.3;
+
+        const isActive = card.classList.contains('active');
+        const finalScale = isActive ? scale * 1.08 : scale;
+
+        card.style.left = (centerX + x + floatX - card.offsetWidth / 2) + 'px';
+        card.style.top = (centerY + floatY - card.offsetHeight / 2) + 'px';
+        card.style.opacity = opacity;
+        card.style.filter = `brightness(${brightness})`;
+        card.style.zIndex = Math.round(depth * 100);
 
         card.style.transform = `
-          translateZ(${finalZ.toFixed(1)}px)
-          rotateX(${(pos.rx + breatheRotX + tiltX).toFixed(2)}deg)
-          rotateY(${(pos.ry + breatheRotY + tiltY).toFixed(2)}deg)
-          rotateZ(${pos.rz}deg)
-          scale(${scale.toFixed(3)})
+          translateZ(${z + floatZ}px)
+          rotateY(${lookAngle + breatheRotY}deg)
+          rotateX(${breatheRotX}deg)
+          scale(${finalScale.toFixed(3)})
         `;
       });
 
+      updateDots();
       animationId = requestAnimationFrame(animate);
     }
+
     animate();
 
-    window.addEventListener('scroll', () => {
-      const rect = container.getBoundingClientRect();
-      const progress = 1 - (rect.top / window.innerHeight);
-      if (progress > -0.5 && progress < 1.5) {
-        scene.style.marginTop = ((progress - 0.5) * 25) + 'px';
-      }
-    }, { passive: true });
-
+    // ── Visibility API ──
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
@@ -981,6 +1069,15 @@
         animate();
       }
     });
+
+    // ── Scroll parallax ──
+    window.addEventListener('scroll', () => {
+      const rect = container.getBoundingClientRect();
+      const progress = 1 - (rect.top / window.innerHeight);
+      if (progress > -0.5 && progress < 1.5) {
+        scene.style.marginTop = ((progress - 0.5) * 20) + 'px';
+      }
+    }, { passive: true });
   })();
   </script>
 
