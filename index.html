@@ -355,6 +355,7 @@
     .meta-right{ padding:32px 22px; }
   }
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -1097,6 +1098,149 @@
     }, { passive: true });
   })();
   </script>
+
+
+  <!-- SAAS GRID — Iconos clickeables a cada producto -->
+  <style>
+  #saas-grid{ border-bottom:1px solid var(--border-soft); padding:80px 0; }
+  #saas-grid .section-head{ text-align:center; max-width:700px; margin:0 auto 56px; }
+  #saas-grid .saas-grid-wrap{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:20px;
+    max-width:900px;
+    margin:0 auto;
+  }
+  #saas-grid .saas-grid-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    padding:24px 12px;
+    border-radius:var(--radius);
+    border:1px solid transparent;
+    background: linear-gradient(var(--surface), var(--surface)) padding-box,
+                linear-gradient(135deg, var(--border), var(--border)) border-box;
+    transition:all .35s ease;
+    cursor:pointer;
+    text-decoration:none;
+    color:var(--text);
+  }
+  #saas-grid .saas-grid-item:hover{
+    transform:translateY(-6px);
+    background: linear-gradient(var(--surface-2), var(--surface-2)) padding-box,
+                linear-gradient(135deg, var(--coral), var(--violet)) border-box;
+    box-shadow:0 16px 40px -12px rgba(0,0,0,0.5);
+  }
+  #saas-grid .saas-grid-item:active{ transform:scale(0.97); }
+  #saas-grid .saas-grid-icon{
+    width:64px; height:64px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; flex-shrink:0;
+    background:var(--surface-2); border:1px solid var(--border);
+    transition:transform .3s ease;
+  }
+  #saas-grid .saas-grid-item:hover .saas-grid-icon{
+    transform:scale(1.08);
+  }
+  #saas-grid .saas-grid-icon img{
+    width:44px; height:44px; object-fit:contain; border-radius:10px;
+  }
+  #saas-grid .saas-grid-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:0.92rem; font-weight:600;
+    text-align:center;
+  }
+  #saas-grid .saas-grid-tag{
+    font-size:0.65rem; color:var(--text-muted);
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase; letter-spacing:0.06em;
+    text-align:center;
+  }
+
+  /* Acentos por producto */
+  #saas-grid .sg-fisco{ --accent:var(--coral); }
+  #saas-grid .sg-miprop{ --accent:var(--cyan); }
+  #saas-grid .sg-campo{ --accent:var(--violet); }
+  #saas-grid .sg-constructor{ --accent:var(--coral); }
+  #saas-grid .sg-farma{ --accent:var(--cyan); }
+  #saas-grid .sg-bar{ --accent:var(--violet); }
+
+  #saas-grid .saas-grid-item:hover .saas-grid-icon{
+    border-color:var(--accent);
+    box-shadow:0 0 20px rgba(var(--accent),0.15);
+  }
+
+  @media(max-width:768px){
+    #saas-grid .saas-grid-wrap{ grid-template-columns:repeat(3, 1fr); gap:14px; }
+    #saas-grid .saas-grid-icon{ width:56px; height:56px; border-radius:14px; }
+    #saas-grid .saas-grid-icon img{ width:38px; height:38px; }
+    #saas-grid .saas-grid-name{ font-size:0.85rem; }
+  }
+  @media(max-width:480px){
+    #saas-grid{ padding:60px 0; }
+    #saas-grid .saas-grid-wrap{ grid-template-columns:repeat(2, 1fr); gap:12px; }
+    #saas-grid .saas-grid-item{ padding:18px 10px; }
+    #saas-grid .saas-grid-icon{ width:52px; height:52px; border-radius:12px; }
+    #saas-grid .saas-grid-icon img{ width:34px; height:34px; }
+    #saas-grid .saas-grid-name{ font-size:0.8rem; }
+    #saas-grid .saas-grid-tag{ font-size:0.6rem; }
+  }
+  </style>
+
+  <section id="saas-grid">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow mono">Productos en producción</p>
+        <h2>Seis SaaS, un mismo <span class="gradient-text">equipo</span>.</h2>
+        <p>Tocá cualquier icono para visitar la landing de cada producto.</p>
+      </div>
+      <div class="saas-grid-wrap">
+        <a href="https://labstudiopna.github.io/FiscoIA/" target="_blank" rel="noopener" class="saas-grid-item sg-fisco reveal">
+          <div class="saas-grid-icon">
+            <img src="https://labstudiopna.github.io/FiscoIA/fiscoia-icon.svg" alt="FiscoIA" loading="lazy">
+          </div>
+          <span class="saas-grid-name">FiscoIA</span>
+          <span class="saas-grid-tag">Contable</span>
+        </a>
+        <a href="https://labstudiopna.github.io/MiPropIA/" target="_blank" rel="noopener" class="saas-grid-item sg-miprop reveal">
+          <div class="saas-grid-icon">
+            <img src="https://labstudiopna.github.io/MiPropIA/icon.svg" alt="MiPropIA" loading="lazy">
+          </div>
+          <span class="saas-grid-name">MiPropIA</span>
+          <span class="saas-grid-tag">Inmobiliario</span>
+        </a>
+        <a href="https://labstudiopna.github.io/CampoIA/" target="_blank" rel="noopener" class="saas-grid-item sg-campo reveal">
+          <div class="saas-grid-icon">
+            <img src="https://labstudiopna.github.io/CampoIA/icon.svg" alt="CampoIA" loading="lazy">
+          </div>
+          <span class="saas-grid-name">CampoIA</span>
+          <span class="saas-grid-tag">Agro</span>
+        </a>
+        <a href="https://labstudiopna.github.io/ConstructorIA/" target="_blank" rel="noopener" class="saas-grid-item sg-constructor reveal">
+          <div class="saas-grid-icon">
+            <img src="https://labstudiopna.github.io/ConstructorIA/icon.svg" alt="ConstructorIA" loading="lazy">
+          </div>
+          <span class="saas-grid-name">ConstructorIA</span>
+          <span class="saas-grid-tag">Obra</span>
+        </a>
+        <a href="https://labstudiopna.github.io/FarmaIA/" target="_blank" rel="noopener" class="saas-grid-item sg-farma reveal">
+          <div class="saas-grid-icon">
+            <img src="https://labstudiopna.github.io/FarmaIA/favicon-192.png" alt="FarmaIA" loading="lazy">
+          </div>
+          <span class="saas-grid-name">FarmaIA</span>
+          <span class="saas-grid-tag">Farmacia</span>
+        </a>
+        <a href="https://labstudiopna.github.io/BarIA/" target="_blank" rel="noopener" class="saas-grid-item sg-bar reveal">
+          <div class="saas-grid-icon">
+            <img src="https://labstudiopna.github.io/BarIA/favicon-192.png" alt="BarIA" loading="lazy">
+          </div>
+          <span class="saas-grid-name">BarIA</span>
+          <span class="saas-grid-tag">Gastronomía</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- PROCESO -->
   <section id="proceso">
